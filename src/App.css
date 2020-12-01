@@ -1,7 +1,32 @@
+.App {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
 .Header nav {
   display: flex;
+  margin: 0 -8px;
 }
 
 .Header nav a {
+  color: black;
+  cursor: pointer;
   margin: 0 10px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+.LoginForm label {
+  margin-bottom: 5px;
+}
+
+.LoginForm input {
+  margin-bottom: 20px;
 }

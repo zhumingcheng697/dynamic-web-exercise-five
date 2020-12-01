@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import "./App.css";
 
 import firebase from "firebase/app";
@@ -24,12 +24,21 @@ const firebaseConfig = {
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
+  }, []);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      setLoggedIn(!!user);
+      setUserInfo(user || null);
+      setLoading(false);
+    });
   }, []);
 
   function logIn(e) {
@@ -50,7 +59,18 @@ function App() {
       });
   }
 
-  function logOut() {}
+  function logOut() {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setLoggedIn(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        setLoggedIn(true);
+      });
+  }
 
   function createAccount(e) {
     e.preventDefault();
@@ -69,18 +89,33 @@ function App() {
       });
   }
 
+  if (loading) {
+    return null;
+  }
+
   return (
     <div className="App">
       <Header loggedIn={loggedIn} logOut={logOut} />
       <Router>
         <Route exact path="/login">
-          <Login logIn={logIn} />
+          {/* If someone is logged in, do not take them to login page - take them to user profile */}
+          {!loggedIn ? <Login logIn={logIn} /> : <Redirect to="/" />}
         </Route>
         <Route exact path="/create-account">
-          <CreateAccount createAccount={createAccount} />
+          {/* If someone is logged in, do not take them to create account page - take them to user profile */}
+          {!loggedIn ? (
+            <CreateAccount createAccount={createAccount} />
+          ) : (
+            <Redirect to="/" />
+          )}
         </Route>
         <Route exact path="/">
-          <UserProfile />
+          {/* If someone is not logged in, do not take them to user profile page - take them to login page */}
+          {!loggedIn ? (
+            <Redirect to="/login" />
+          ) : (
+            <UserProfile userInfo={userInfo} />
+          )}
         </Route>
       </Router>
     </div>

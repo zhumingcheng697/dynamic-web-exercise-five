@@ -1,7 +1,16 @@
 import React from "react";
 
-function UserProfileComponent() {
-  return <div></div>;
+function UserProfileComponent({ userInfo }) {
+  return (
+    <div>
+      <p>
+        <strong>UID:</strong> {userInfo.uid}
+      </p>
+      <p>
+        <strong>Email:</strong> {userInfo.email}
+      </p>
+    </div>
+  );
 }
 
 export default UserProfileComponent;
