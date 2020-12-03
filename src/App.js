@@ -34,9 +34,8 @@ function App() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
       setLoggedIn(!!user);
-      setUserInfo(user || null);
+      setUserInfo(user);
       setLoading(false);
     });
   }, []);
@@ -50,7 +49,6 @@ function App() {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log(res);
         setLoggedIn(true);
       })
       .catch((e) => {
@@ -81,7 +79,6 @@ function App() {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log(res);
         setLoggedIn(true);
       })
       .catch((e) => {
