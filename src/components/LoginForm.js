@@ -5,10 +5,14 @@ function LoginForm({ logIn }) {
     <div>
       <form className="LoginForm" onSubmit={logIn}>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" />
+        <input type="email" name="email" autoComplete="email" />
 
         <label htmlFor="current-password">Password</label>
-        <input type="password" name="current-password" />
+        <input
+          type="password"
+          name="current-password"
+          autoComplete="current-password"
+        />
 
         <input type="submit" value="Log In" />
       </form>

@@ -5,10 +5,14 @@ function CreateAccountForm({ createAccount }) {
     <div>
       <form className="LoginForm" onSubmit={createAccount}>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" />
+        <input type="email" name="email" autoComplete="email" />
 
         <label htmlFor="new-password">Password</label>
-        <input type="password" name="new-password" />
+        <input
+          type="password"
+          name="new-password"
+          autoComplete="new-password"
+        />
 
         <input type="submit" value="Create Account" />
       </form>
