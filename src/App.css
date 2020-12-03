@@ -6,6 +6,7 @@
 
 .Header nav {
   display: flex;
+  justify-content: flex-end;
   margin: 0 -8px;
 }
 
@@ -29,4 +30,8 @@
 
 .LoginForm input {
   margin-bottom: 20px;
+}
+
+.LoginForm input[type="submit"] {
+  margin-top: 10px;
 }

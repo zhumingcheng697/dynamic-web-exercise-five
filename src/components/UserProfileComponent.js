@@ -1,6 +1,10 @@
 import React from "react";
 
 function UserProfileComponent({ userInfo }) {
+  if (!userInfo) {
+    return null;
+  }
+
   return (
     <div>
       <p>
